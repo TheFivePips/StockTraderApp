@@ -33,14 +33,14 @@ diff_percent = (difference / float(yesterdays_close_price)) * 100
 print(diff_percent)
 
 if diff_percent > 1:
-    print("Get News")
-
-## STEP 1: Use https://www.alphavantage.co
-# When STOCK price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
-
-## STEP 2: Use https://newsapi.org
-# Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME. 
-
+    news_url = "https://newsapi.org/v2/everything?"
+    news_params = {
+        "apiKey": config["NEWS_API_KEY"],
+        "qInTitle": COMPANY_NAME,
+    }
+    news_response = requests.get(news_url, params=news_params)
+    news_data = news_response.json()["articles"]
+    top_three_articles = news_data[:3]
 ## STEP 3: Use https://www.twilio.com
 # Send a seperate message with the percentage change and each article's title and description to your phone number. 
 
